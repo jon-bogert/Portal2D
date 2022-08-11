@@ -167,6 +167,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\PhysicsObject.cpp" />
+    <ClCompile Include="Sources\Game.cpp" />
+    <ClCompile Include="Sources\GameObject.cpp" />
     <ClCompile Include="Sources\Pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -174,9 +177,19 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Sources\CoreBuilder.cpp" />
+    <ClCompile Include="Sources\TextureManager.cpp" />
+    <ClCompile Include="Sources\Window.cpp" />
+    <ClCompile Include="Sources\TestChamber.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\PhysicsObject.h" />
+    <ClInclude Include="Sources\Game.h" />
+    <ClInclude Include="Sources\GameObject.h" />
+    <ClInclude Include="Sources\Entity.h" />
     <ClInclude Include="Sources\Pch.h" />
+    <ClInclude Include="Sources\TextureManager.h" />
+    <ClInclude Include="Sources\Window.h" />
+    <ClInclude Include="Sources\TestChamber.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
