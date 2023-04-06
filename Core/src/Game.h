@@ -1,6 +1,7 @@
 #pragma once
 #include "CompCube.h"
 #include "StaticBox.h"
+#include "Portal.h"
 
 class GameObject;
 class Game
@@ -12,7 +13,8 @@ class Game
 	std::vector<GameObject*> _drawBuffer;
 
 	std::unique_ptr<CompCube> _testCube;
-	std::unique_ptr<StaticBox> _testCube2;
+	std::unique_ptr<Portal> _testPortal1;
+	std::unique_ptr<Portal> _testPortal2;
 
 	static Game& Get();
 	Game();

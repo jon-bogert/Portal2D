@@ -108,7 +108,10 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Physics.cpp" />
+    <ClCompile Include="src\Portal.cpp" />
     <ClCompile Include="src\StaticBox.cpp" />
+    <ClCompile Include="src\TileData.cpp" />
+    <ClCompile Include="src\TileMap.cpp" />
     <ClCompile Include="src\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -122,8 +125,11 @@
     <ClInclude Include="src\InstructionsScreen.h" />
     <ClInclude Include="src\MainMenu.h" />
     <ClInclude Include="src\Physics.h" />
+    <ClInclude Include="src\Portal.h" />
     <ClInclude Include="src\StaticBox.h" />
     <ClInclude Include="src\Structs.h" />
+    <ClInclude Include="src\TileData.h" />
+    <ClInclude Include="src\TileMap.h" />
     <ClInclude Include="src\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

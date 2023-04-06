@@ -17,6 +17,7 @@ StaticBox::StaticBox(xe::Vector2 position)
 void StaticBox::Awake()
 {
 	SetupSprite("test", tempVisual);
+	_dimensions = { 0.5f, 0.5f };
 
 	_rigidbody.Setup(Rigidbody::Type::Static, &transform);
 	_collider.Setup(_dimensions, this, _rigidbody);

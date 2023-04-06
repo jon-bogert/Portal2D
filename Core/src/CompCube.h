@@ -9,6 +9,9 @@ class CompCube : public GameObject
 
 	sf::Sprite tempVisual;
 
+	bool _doTeleport = false;
+	xe::Vector2 _teleportPosition;
+
 public:
 	CompCube();
 	CompCube(xe::Vector2 position);
@@ -23,4 +26,6 @@ public:
 	void OnCollisionEnter(GameObject* other) override;
 	void OnTriggerEnter(GameObject* other) override;
 	void OnTriggerExit(GameObject* other) override;
+
+	void NewPosition(xe::Vector2 pos);
 };

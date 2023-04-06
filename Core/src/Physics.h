@@ -8,6 +8,14 @@ class CollisionListener : public b2ContactListener
 
 class Physics
 {
+	struct CollisionPair
+	{
+		GameObject* a;
+		GameObject* b;
+		bool isTrigger;
+		bool isExit;
+	};
+
 	Physics();
 	static Physics& Get();
 
@@ -15,11 +23,16 @@ class Physics
 	b2World world = b2World(gravity);
 
 	CollisionListener _listener;
+	std::vector<CollisionPair> _collisionPairs;
 
 public:
 
 	static void TimeStep(const float& deltaTime, int velIter, int posItr);
+	static void AddCollisionPair(GameObject* a, GameObject* b, bool isTrigger = false, bool isExit = false);
 	static b2World& World();
+
+private:
+	void CollisionCallbacks();
 };
 
 struct PhysicsMaterial

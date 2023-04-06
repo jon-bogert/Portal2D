@@ -17,6 +17,8 @@ CompCube::CompCube(xe::Vector2 position)
 void CompCube::Awake()
 {
 	SetupSprite("test", tempVisual);
+	_dimensions = { 0.5f, 0.5f };
+	_tag = "CompCube";
 
 	_rigidbody.Setup(Rigidbody::Type::Dynamic, &transform);
 	_collider.Setup(_dimensions, this, _rigidbody);
@@ -59,4 +61,9 @@ void CompCube::OnTriggerEnter(GameObject* other)
 void CompCube::OnTriggerExit(GameObject* other)
 {
 	std::cout << "CompCube Left a trigger" << std::endl;
+}
+
+void CompCube::NewPosition(xe::Vector2 pos)
+{
+	_rigidbody->SetTransform(pos, _rigidbody->GetAngle());
 }

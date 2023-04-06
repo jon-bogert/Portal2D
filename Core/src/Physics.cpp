@@ -16,11 +16,45 @@ Physics& Physics::Get()
 void Physics::TimeStep(const float& deltaTime, int velIter, int posItr)
 {
 	Get().world.Step(deltaTime, velIter, posItr);
+	Get().CollisionCallbacks();
+}
+
+void Physics::AddCollisionPair(GameObject* a, GameObject* b, bool isTrigger, bool isExit)
+{
+	Get()._collisionPairs.push_back({ a, b, isTrigger, isExit });
 }
 
 b2World& Physics::World()
 {
 	return Get().world;
+}
+
+void Physics::CollisionCallbacks()
+{
+	for (CollisionPair& cp : Get()._collisionPairs)
+	{
+		if (cp.isTrigger && cp.isExit)
+		{
+			cp.a->OnTriggerExit(cp.b);
+			cp.b->OnTriggerExit(cp.a);
+		}
+		else if (cp.isTrigger)
+		{
+			cp.a->OnTriggerEnter(cp.b);
+			cp.b->OnTriggerEnter(cp.a);
+		}
+		else if (cp.isExit)
+		{
+			cp.a->OnCollisionExit(cp.b);
+			cp.b->OnCollisionExit(cp.a);
+		}
+		else
+		{
+			cp.a->OnCollisionEnter(cp.b);
+			cp.b->OnCollisionEnter(cp.a);
+		}
+	}
+	_collisionPairs.clear();
 }
 
 b2Body* Rigidbody::operator->()
@@ -119,13 +153,11 @@ void CollisionListener::BeginContact(b2Contact* contact)
 	// Check if one of the fixtures is a sensor
 	if (fixtureA->IsSensor() || fixtureB->IsSensor())
 	{
-		objA->OnTriggerEnter(objB);
-		objB->OnTriggerEnter(objA);
+		Physics::AddCollisionPair(objA, objB, true);
 		return;
 	}
 
-	objA->OnCollisionEnter(objB);
-	objB->OnCollisionEnter(objA);
+	Physics::AddCollisionPair(objA, objB);
 }
 
 void CollisionListener::EndContact(b2Contact* contact)
@@ -139,11 +171,9 @@ void CollisionListener::EndContact(b2Contact* contact)
 	// Check if one of the fixtures is a sensor
 	if (fixtureA->IsSensor() || fixtureB->IsSensor())
 	{
-		objA->OnTriggerExit(objB);
-		objB->OnTriggerExit(objA);
+		Physics::AddCollisionPair(objA, objB, true, true);
 		return;
 	}
 
-	objA->OnCollisionExit(objB);
-	objB->OnCollisionExit(objA);
+	Physics::AddCollisionPair(objA, objB, false, true);
 }

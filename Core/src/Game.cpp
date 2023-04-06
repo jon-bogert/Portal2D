@@ -4,6 +4,7 @@
 #include "AssetManager.h"
 #include "Window.h"
 #include "GameObject.h"
+#include "TileData.h"
 
 namespace Application
 {
@@ -33,8 +34,9 @@ void Game::Start()
 	Get().fps.setFont(*AssetManager::GetFont("default"));
 	Get().fps.setFillColor(sf::Color::White);
 
-	Get()._testCube = std::make_unique<CompCube>(xe::Vector2(15, 15));
-	Get()._testCube2 = std::make_unique<StaticBox>(xe::Vector2(15, 0));
+	Get()._testCube = std::make_unique<CompCube>(xe::Vector2(5, 5));
+	Get()._testPortal2 = std::make_unique<Portal>(xe::Vector2(10, 5), Direction::Up, Portal::Color::Orange);
+	Get()._testPortal1 = std::make_unique<Portal>(xe::Vector2(5, 0), Direction::Up, Portal::Color::Blue, Get()._testPortal2.get());
 
 	for (GameObject* obj : Get()._gameObjects)
 		obj->Start();

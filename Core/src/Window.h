@@ -16,7 +16,7 @@ class Window
 	xe::Vector2 _refResolution = { 1280, 720 };
 	float _scale = 1.f; // Set by resolutions;
 
-	int _pixelsPerUnit = 32;
+	int _pixelsPerUnit = 64;
 
 	bool _fullscreenMode = false; // false for debug
 
