@@ -2,6 +2,7 @@
 #include "CompCube.h"
 #include "StaticBox.h"
 #include "Portal.h"
+#include "PortalGun.h"
 
 class GameObject;
 class Game
@@ -15,6 +16,8 @@ class Game
 	std::unique_ptr<CompCube> _testCube;
 	std::unique_ptr<Portal> _testPortal1;
 	std::unique_ptr<Portal> _testPortal2;
+
+	std::unique_ptr<PortalGun> _portalGun;
 
 	static Game& Get();
 	Game();

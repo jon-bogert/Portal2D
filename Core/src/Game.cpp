@@ -35,8 +35,10 @@ void Game::Start()
 	Get().fps.setFillColor(sf::Color::White);
 
 	Get()._testCube = std::make_unique<CompCube>(xe::Vector2(5, 5));
-	Get()._testPortal2 = std::make_unique<Portal>(xe::Vector2(15, 5), Direction::Left, Portal::Color::Orange);
-	Get()._testPortal1 = std::make_unique<Portal>(xe::Vector2(5, 0), Direction::Up, Portal::Color::Blue, Get()._testPortal2.get());
+	//Get()._testPortal2 = std::make_unique<Portal>(xe::Vector2(15, 5), Direction::Up, Portal::Color::Orange);
+	//Get()._testPortal1 = std::make_unique<Portal>(xe::Vector2(5, 0), Direction::Up, Portal::Color::Blue, Get()._testPortal2.get());
+
+	Get()._portalGun = std::make_unique<PortalGun>();
 
 	for (GameObject* obj : Get()._gameObjects)
 		obj->Start();

@@ -8,13 +8,17 @@ Portal::Portal()
 	Awake();
 }
 
-Portal::Portal(xe::Vector2 position, Direction direction, Color color, Portal* other)
+Portal::Portal(xe::Vector2 position, Direction direction, Color color)
 	: _direction(direction)
 	, _color(color)
-	, _pair(other)
 {
 	transform.position = position;
 	Awake();
+}
+
+Portal::~Portal()
+{
+	Game::RemoveGameObject(this);
 }
 
 void Portal::Awake()
@@ -54,10 +58,10 @@ void Portal::OnTriggerEnter(GameObject* other)
 	if (other->GetTag() == "CompCube" && other != _waitForExit)
 	{
 		CompCube* cube = (CompCube*)other;
-		xe::Vector2 newVelocity = RotateVector(cube->GetVelocity(), GetNormal(), _pair->GetNormal());
+		xe::Vector2 newVelocity = RotateVector(cube->GetVelocity(), GetNormal(), _partner->GetNormal());
 
-		cube->Teleport(_pair->transform.position, newVelocity);
-		_pair->AddWaitForExit(other);
+		cube->Teleport(_partner->transform.position, newVelocity);
+		_partner->AddWaitForExit(other);
 		std::cout << "CompCube Detected" << std::endl;
 	}
 }
@@ -76,6 +80,11 @@ Direction Portal::GetDirection() const
 Portal::Color Portal::GetColor() const
 {
 	return _color;
+}
+
+void Portal::SetPartner(Portal* partner)
+{
+	_partner = partner;
 }
 
 void Portal::AddWaitForExit(GameObject* obj)

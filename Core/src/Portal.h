@@ -12,7 +12,7 @@ private:
 	Direction _direction = Direction::Left;
 	Color _color = Color::Blue;
 
-	Portal* _pair = nullptr;
+	Portal* _partner = nullptr;
 
 	sf::Sprite _sprite;
 
@@ -23,7 +23,8 @@ private:
 
 public:
 	Portal();
-	Portal(xe::Vector2 position, Direction direction, Color color, Portal* other = nullptr);
+	Portal(xe::Vector2 position, Direction direction, Color color);
+	~Portal();
 
 	void Awake();
 	void Draw();
@@ -34,6 +35,8 @@ public:
 	//Getters & Setters
 	Direction GetDirection() const;
 	Color GetColor() const;
+
+	void SetPartner(Portal* partner);
 
 	void AddWaitForExit(GameObject* obj);
 	xe::Vector2 GetNormal();

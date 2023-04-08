@@ -109,6 +109,7 @@
     <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Physics.cpp" />
     <ClCompile Include="src\Portal.cpp" />
+    <ClCompile Include="src\PortalGun.cpp" />
     <ClCompile Include="src\StaticBox.cpp" />
     <ClCompile Include="src\TileData.cpp" />
     <ClCompile Include="src\TileMap.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="src\MainMenu.h" />
     <ClInclude Include="src\Physics.h" />
     <ClInclude Include="src\Portal.h" />
+    <ClInclude Include="src\PortalGun.h" />
     <ClInclude Include="src\StaticBox.h" />
     <ClInclude Include="src\Structs.h" />
     <ClInclude Include="src\TileData.h" />
