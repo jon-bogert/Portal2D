@@ -111,6 +111,11 @@ Rigidbody::Type Rigidbody::GetType() const
 	return _type;
 }
 
+xe::Vector2 Rigidbody::GetVelocity() const
+{
+	return _body->GetLinearVelocity();
+}
+
 BoxCollider::BoxCollider(xe::Vector2 dimensions, GameObject* user, Rigidbody& rigidbodyRef, PhysicsMaterial material, bool isTrigger)
 {
 	Setup(dimensions, user, rigidbodyRef, material, isTrigger);

@@ -64,6 +64,7 @@ public:
 	void UpdateTransform();
 
 	Type GetType() const;
+	xe::Vector2 GetVelocity() const;
 
 };
 

@@ -63,7 +63,13 @@ void CompCube::OnTriggerExit(GameObject* other)
 	std::cout << "CompCube Left a trigger" << std::endl;
 }
 
-void CompCube::NewPosition(xe::Vector2 pos)
+void CompCube::Teleport(xe::Vector2 pos, xe::Vector2 newVelocity)
 {
 	_rigidbody->SetTransform(pos, _rigidbody->GetAngle());
+	_rigidbody->SetLinearVelocity(newVelocity);
+}
+
+xe::Vector2 CompCube::GetVelocity() const
+{
+	return _rigidbody.GetVelocity();
 }

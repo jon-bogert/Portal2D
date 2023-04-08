@@ -53,7 +53,10 @@ void Portal::OnTriggerEnter(GameObject* other)
 {
 	if (other->GetTag() == "CompCube" && other != _waitForExit)
 	{
-		((CompCube*)other)->NewPosition(_pair->transform.position);
+		CompCube* cube = (CompCube*)other;
+		xe::Vector2 newVelocity = RotateVector(cube->GetVelocity(), GetNormal(), _pair->GetNormal());
+
+		cube->Teleport(_pair->transform.position, newVelocity);
 		_pair->AddWaitForExit(other);
 		std::cout << "CompCube Detected" << std::endl;
 	}
@@ -78,4 +81,33 @@ Portal::Color Portal::GetColor() const
 void Portal::AddWaitForExit(GameObject* obj)
 {
 	_waitForExit = obj;
+}
+
+xe::Vector2 Portal::GetNormal()
+{
+	switch (_direction)
+	{
+	case Direction::Left:
+		return { -1.f, 0.f };
+	case Direction::Up:
+		return { 0.f, 1.f };
+	case Direction::Right:
+		return { 1.f, 0.f };
+	case Direction::Down:
+		return { 0.f, -1.f };
+	default:
+		return xe::Vector2::Zero();
+	}
+}
+
+xe::Vector2 Portal::RotateVector(xe::Vector2 vec, xe::Vector2 norm1, xe::Vector2 norm2)
+{
+	norm1 *= -1.f;
+	float angle = std::acosf(xe::Dot(norm1, norm2));
+	angle *= std::signbit(norm1.x * norm2.y - norm1.y * norm2.x) ? -1 : 1;
+
+	float c = std::cos(angle);
+	float s = std::sin(angle);
+
+	return xe::Vector2(c * vec.x - s * vec.y, s * vec.x + c * vec.y);
 }

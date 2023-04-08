@@ -27,5 +27,7 @@ public:
 	void OnTriggerEnter(GameObject* other) override;
 	void OnTriggerExit(GameObject* other) override;
 
-	void NewPosition(xe::Vector2 pos);
+	void Teleport(xe::Vector2 pos, xe::Vector2 newVelocity);
+
+	xe::Vector2 GetVelocity() const;
 };
