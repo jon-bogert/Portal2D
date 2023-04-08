@@ -31,15 +31,13 @@ void PortalGun::OnDestroy()
 //Called On LeftClick
 void PortalGun::ShootBlue()
 {
-	_portals.blue = std::make_unique<Portal>(Window::PixelToUnit(xe::InputSystem::MousePosition()), Direction::Up, Portal::Color::Blue);
-	LinkPortals();
+	_portals.blue->ChangePosition(Window::PixelToUnit(xe::InputSystem::MousePosition()), Direction::Up);
 }
 
 //Called On RightClick
 void PortalGun::ShootOrange()
 {
-	_portals.blue = std::make_unique<Portal>(Window::PixelToUnit(xe::InputSystem::MousePosition()), Direction::Up, Portal::Color::Orange);
-	LinkPortals();
+	_portals.orange->ChangePosition(Window::PixelToUnit(xe::InputSystem::MousePosition()), Direction::Up);
 }
 
 void PortalGun::LinkPortals()

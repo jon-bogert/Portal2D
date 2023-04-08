@@ -37,12 +37,14 @@ public:
 	Color GetColor() const;
 
 	void SetPartner(Portal* partner);
+	void ChangePosition(xe::Vector2 newPosition, Direction direction);
 
 	void AddWaitForExit(GameObject* obj);
 	xe::Vector2 GetNormal();
 
 private:
 	static xe::Vector2 RotateVector(xe::Vector2 vec, xe::Vector2 norm1, xe::Vector2 norm2);
+	static float GetRotation(Direction dir);
 
 
 };

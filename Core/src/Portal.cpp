@@ -29,18 +29,7 @@ void Portal::Awake()
 		SetupSprite("testportal-orange", _sprite);
 	_dimensions = { 0.25f, 1.f };
 
-	switch (_direction)
-	{
-	case Direction::Up:
-		transform.rotation.SetDeg(90.f);
-		break;
-	case Direction::Right:
-		transform.rotation.SetDeg(180.f);
-		break;
-	case Direction::Down:
-		transform.rotation.SetDeg(270.f);
-		break;
-	}
+	transform.rotation.SetDeg(GetRotation(_direction));
 
 	_rigidbody.Setup(Rigidbody::Type::Static, &transform);
 	_collider.Setup(_dimensions, this, _rigidbody, PhysicsMaterial(), true);
@@ -87,6 +76,13 @@ void Portal::SetPartner(Portal* partner)
 	_partner = partner;
 }
 
+void Portal::ChangePosition(xe::Vector2 newPosition, Direction direction)
+{
+	transform.position = newPosition;
+	transform.rotation.SetDeg(GetRotation(direction));
+	_rigidbody.Setup(Rigidbody::Type::Static, &transform);
+}
+
 void Portal::AddWaitForExit(GameObject* obj)
 {
 	_waitForExit = obj;
@@ -119,4 +115,19 @@ xe::Vector2 Portal::RotateVector(xe::Vector2 vec, xe::Vector2 norm1, xe::Vector2
 	float s = std::sin(angle);
 
 	return xe::Vector2(c * vec.x - s * vec.y, s * vec.x + c * vec.y);
+}
+
+float Portal::GetRotation(Direction dir)
+{
+	switch (dir)
+	{
+	case Direction::Up:
+		return 90.f;
+	case Direction::Right:
+		return 180.f;
+	case Direction::Down:
+		return 270.f;
+	default:
+		return 0.f;
+	}
 }
