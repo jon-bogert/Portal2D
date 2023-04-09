@@ -3,6 +3,7 @@
 #include "StaticBox.h"
 #include "Portal.h"
 #include "PortalGun.h"
+#include "Level.h"
 
 class GameObject;
 class Game
@@ -14,10 +15,9 @@ class Game
 	std::vector<GameObject*> _drawBuffer;
 
 	std::unique_ptr<CompCube> _testCube;
-	std::unique_ptr<Portal> _testPortal1;
-	std::unique_ptr<Portal> _testPortal2;
-
 	std::unique_ptr<PortalGun> _portalGun;
+
+	std::unique_ptr<Level> _testLevel;
 
 	static Game& Get();
 	Game();
