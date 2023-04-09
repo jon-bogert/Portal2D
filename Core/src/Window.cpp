@@ -180,7 +180,7 @@ xe::Vector2 Window::UnitToPixel(xe::Vector2 unitCoord)
 xe::Vector2 Window::PixelToUnit(xe::Vector2 pixelCoord)
 {
 	pixelCoord.y = Get()._resolution.y - pixelCoord.y;
-	return (pixelCoord / Get()._pixelsPerUnit) * Get()._scale - Get()._camera;
+	return (pixelCoord / Get()._pixelsPerUnit) / Get()._scale - Get()._camera;
 }
 
 void Window::SetCursorVis(const bool visible)

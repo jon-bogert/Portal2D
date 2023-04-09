@@ -51,7 +51,6 @@ void Portal::OnTriggerEnter(GameObject* other)
 
 		cube->Teleport(_partner->transform.position, newVelocity);
 		_partner->AddWaitForExit(other);
-		std::cout << "CompCube Detected" << std::endl;
 	}
 }
 
@@ -80,7 +79,7 @@ void Portal::ChangePosition(xe::Vector2 newPosition, Direction direction)
 {
 	transform.position = newPosition;
 	transform.rotation.SetDeg(GetRotation(direction));
-	_rigidbody.Setup(Rigidbody::Type::Static, &transform);
+	_rigidbody->SetTransform(transform.position, -transform.rotation.GetRad());
 }
 
 void Portal::AddWaitForExit(GameObject* obj)

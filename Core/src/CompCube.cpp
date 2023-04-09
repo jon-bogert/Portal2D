@@ -55,12 +55,12 @@ void CompCube::OnCollisionEnter(GameObject* other)
 
 void CompCube::OnTriggerEnter(GameObject* other)
 {
-	std::cout << "CompCube Entered a trigger" << std::endl;
+
 }
 
 void CompCube::OnTriggerExit(GameObject* other)
 {
-	std::cout << "CompCube Left a trigger" << std::endl;
+
 }
 
 void CompCube::Teleport(xe::Vector2 pos, xe::Vector2 newVelocity)

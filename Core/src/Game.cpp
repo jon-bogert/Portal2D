@@ -109,10 +109,17 @@ void Game::RemoveGameObject(GameObject* obj)
 	auto iter = std::find(Get()._gameObjects.begin(), Get()._gameObjects.end(), obj);
 	if (iter == Get()._gameObjects.end())
 	{
-		std::cout << "GameObject could was not found and could not be removed" << std::endl;
+		std::cout << "GameObject could was not found and could not be removed from Game::_gameObjects" << std::endl;
 		return;
 	}
 	Get()._gameObjects.erase(iter);
+
+	iter = std::find(Get()._drawBuffer.begin(), Get()._drawBuffer.end(), obj);
+	if (iter == Get()._drawBuffer.end())
+	{
+		std::cout << "GameObject could was not found and could not be removed from Game::_drawBuffer" << std::endl;
+		return;
+	}
 	Get()._drawBuffer.erase(iter);
 }
 
