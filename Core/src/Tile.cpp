@@ -30,7 +30,7 @@ void Tile::Awake()
 
 void Tile::Start()
 {
-	SetupSprite("test", _sprite);
+	SetupSprite("wall", _sprite);
 }
 
 void Tile::Draw()

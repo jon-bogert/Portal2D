@@ -17,6 +17,8 @@ AssetManager::AssetManager()
     AddTexture("assets/textures/testportal-blue.png", "testportal-blue");
     AddTexture("assets/textures/testportal-orange.png", "testportal-orange");
 
+    AddTexture("assets/textures/wall.png", "wall");
+
     //Fonts
     AddFont("assets/fonts/JetBrainsMono.ttf", "default");
 
