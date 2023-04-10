@@ -23,6 +23,8 @@ class Window
 	static Window& Get();
 	Window();
 
+	std::vector<std::pair<std::string, void*>> _debugVisuals;
+
 public:
 	~Window();
 	Window(const Window& other) = delete;
@@ -60,5 +62,8 @@ public:
 	static xe::Vector2 PixelToUnit(xe::Vector2 pixelCoord);
 
 	static void SetCursorVis(const bool visible);
+
+	static float GetRotation(xe::Vector2 start, xe::Vector2 end);
+	static void DrawLine(xe::Vector2 start, xe::Vector2 end, float width, sf::Color color);
 };
 

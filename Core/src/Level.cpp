@@ -3,6 +3,8 @@
 
 #include "Tile.h"
 #include "Game.h"
+#include "Window.h"
+#include "XephTools/InputSystem.h"
 
 Level::Level()
 {
@@ -19,13 +21,13 @@ void Level::Awake()
 	Game::AddGameObject(this);
 
 	std::vector<int> ids = {
-		1, 1, 1, 1, 1,
-		1, 0, 0, 0, 1,
-		1, 0, 0, 0, 1,
-		1, 0, 0, 0, 1,
-		1, 1, 1, 1, 1
+		1, 1, 1, 1, 1, 1,
+		1, 0, 0, 0, 0, 1,
+		1, 0, 0, 0, 0, 1,
+		1, 0, 0, 0, 0, 1,
+		1, 1, 1, 1, 1, 1
 	};
-	_dimensions = { 5, 4 };
+	_dimensions = { 6, 5 };
 	for (size_t i = 0; i < ids.size(); ++i)
 	{
 		_tiles.emplace_back(std::make_unique<Tile>(ids[i]));
@@ -40,22 +42,35 @@ void Level::Start()
 
 void Level::Update(const float& deltaTime)
 {
+	for (auto& tile : _tiles)
+	{
+		tile->DebugTileDisplay(false);
+	}
+	xe::Vector2 point = xe::Vector2(3, 2.5);
+	xe::Vector2 norm = xe::Normalize(Window::PixelToUnit(xe::InputSystem::MousePosition()) - point);
+	Tile* tile = RaycastTile(point, norm);
+	if (tile)
+		tile->DebugTileDisplay(true);
 }
 
 Tile* Level::RaycastTile(xe::Vector2 start, xe::Vector2 castNormal)
 {
-	if (castNormal.x != 0.f)
+	if (castNormal == xe::Vector2::Zero())
 	{
-		std::cout << "Vertical cast not supported yet" << std::endl; // TODO
+		std::cout << "RaycastTile(): castNormal cannot be Zero" << std::endl;
 		return nullptr;
 	}
+
 	xe::Normalize(castNormal);
+	bool isVert = (castNormal.x == 0.f);
 
 	float slope = castNormal.y / castNormal.x; // rise over run
 	float yOff = start.y - slope * start.x;
 
 	//Get check end-point from castNormal and map size
 	xe::Vector2 target =  start + castNormal * CastRange();
+
+	Window::DrawLine(start, target, 5, sf::Color::Green);
 
 	bool isTall = fabs(slope) >= 1.f;
 	bool isUp = castNormal.y >= 0.f;
@@ -71,7 +86,7 @@ Tile* Level::RaycastTile(xe::Vector2 start, xe::Vector2 castNormal)
 			testY = (int)start.y + 1; // start at tile above
 			while (testY < target.y)
 			{
-				testX = (int)((testY - yOff) / slope);
+				testX = (isVert) ? (int)start.x : (int)((testY - yOff) / slope);
 				Tile* tile = GetTile(testX, testY);
 				if (tile->GetID() > 0)
 				{
@@ -85,7 +100,7 @@ Tile* Level::RaycastTile(xe::Vector2 start, xe::Vector2 castNormal)
 			testY = (int)start.y; // start at tile below
 			while (testY > target.y)
 			{
-				testX = (int)((testY - yOff) / slope);
+				testX = (isVert) ? (int)start.x : (int)((testY - yOff) / slope);
 				Tile* tile = GetTile(testX, testY);
 				if (tile->GetID() > 0)
 				{
@@ -163,5 +178,5 @@ int Level::PosToIndex(int x, int y)
 
 xe::Vector2 Level::IndexToPos(int index)
 {
-	return xe::Vector2(index / (int)_dimensions.x, index % (int)_dimensions.x);
+	return xe::Vector2(index % (int)_dimensions.x, index / (int)_dimensions.x);
 }

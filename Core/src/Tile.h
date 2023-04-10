@@ -7,6 +7,8 @@ class Tile : public GameObject
 	sf::Sprite _sprite;
 	bool _doDraw = false;
 
+	sf::RectangleShape _debugOutline;
+
 public:
 	Tile();
 	Tile(int id);
@@ -19,5 +21,7 @@ public:
 	void SetTilePosition(int x, int y);
 	xe::Vector2 GetTilePos() const;
 	int GetID() const;
+
+	void DebugTileDisplay(bool isOn);
 
 };

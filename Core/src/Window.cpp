@@ -114,6 +114,21 @@ void Window::Clear()
 
 void Window::Display()
 {
+	for (auto& d : Get()._debugVisuals)
+	{
+		if (d.first == "line")
+		{
+			sf::RectangleShape* line = (sf::RectangleShape*)d.second;
+			Get()._window->draw(*line);
+			delete line;
+		}
+		else
+		{
+			throw std::exception("Bad Debug Visual tag");
+		}
+	}
+	Get()._debugVisuals.clear();
+
 	Get()._window->display();
 }
 
@@ -186,4 +201,30 @@ xe::Vector2 Window::PixelToUnit(xe::Vector2 pixelCoord)
 void Window::SetCursorVis(const bool visible)
 {
 	Get()._window->setMouseCursorVisible(visible);
+}
+
+float Window::GetRotation(xe::Vector2 start, xe::Vector2 end)
+{
+	return atanf((end.y - start.y) / (end.x - start.x)) * (180.f / 3.1416f);
+}
+
+void Window::DrawLine(xe::Vector2 start, xe::Vector2 end, float width, sf::Color color)
+{
+	start.y = HeightInUnits() - start.y;
+	end.y = HeightInUnits() - end.y;
+	float length = xe::Distance(start, end);
+	xe::Vector2 center = xe::Lerp(start, end, 0.5f);
+	float rot = GetRotation(start, end);
+
+	float scale = Get()._pixelsPerUnit * Get()._scale;
+
+	sf::RectangleShape line;
+	line.setSize({ length * scale, width });
+	line.setOrigin({ length * scale * 0.5f, width * 0.5f });
+	line.setPosition(center * scale);
+	line.setFillColor(color);
+	line.setRotation(rot);
+
+	//Get()._window->draw(line);
+	Get()._debugVisuals.emplace_back(std::make_pair<std::string, void*>("line", new sf::RectangleShape(line)));
 }
