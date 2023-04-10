@@ -225,6 +225,5 @@ void Window::DrawLine(xe::Vector2 start, xe::Vector2 end, float width, sf::Color
 	line.setFillColor(color);
 	line.setRotation(rot);
 
-	//Get()._window->draw(line);
 	Get()._debugVisuals.emplace_back(std::make_pair<std::string, void*>("line", new sf::RectangleShape(line)));
 }

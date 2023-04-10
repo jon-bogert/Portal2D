@@ -70,7 +70,7 @@ Tile* Level::RaycastTile(xe::Vector2 start, xe::Vector2 castNormal)
 	//Get check end-point from castNormal and map size
 	xe::Vector2 target =  start + castNormal * CastRange();
 
-	Window::DrawLine(start, target, 5, sf::Color::Green);
+	Window::DrawLine(start, target, 1, sf::Color::Green);
 
 	bool isTall = fabs(slope) >= 1.f;
 	bool isUp = castNormal.y >= 0.f;
